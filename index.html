@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="title">XY_Analyst - Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="xy_analyst.css" />
+</head>
+<body>
+  <div class="bg">
+    <div class="grid-lines"></div>
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+  </div>
+
+  <main class="shell">
+    <nav class="topbar">
+      <div class="logo">
+        <span class="logo-mark">xy</span>
+        <span class="logo-text">XY_Analyst</span>
+        <span class="logo-dot">.link</span>
+      </div>
+      <div class="menu">
+        <a href="#" data-i18n="nav.stats">Estadísticas</a>
+      </div>
+      <div class="top-actions">
+        <div class="lang-picker">
+          <button id="langToggle" class="ghost" type="button" aria-expanded="false" aria-haspopup="menu">Español ▾</button>
+          <div id="langMenu" class="lang-menu" role="menu" aria-hidden="true" hidden>
+            <button type="button" data-lang="es">Español</button>
+            <button type="button" data-lang="en">English</button>
+            <button type="button" data-lang="pt">Português</button>
+            <button type="button" data-lang="fr">Français</button>
+          </div>
+        </div>
+        <button id="loginBtn" class="ghost" type="button" data-i18n="nav.login">Iniciar sesión</button>
+        <button id="createProfileNavBtn" class="cta small" type="button" data-i18n="nav.create">Crear perfil gratis</button>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="pill" data-i18n="hero.pill">Link in bio para deportistas</p>
+        <h1>
+          <span data-i18n="hero.title">Tu perfil de fútbol</span>
+          <span class="accent" data-i18n="hero.titleAccent">en un enlace</span>
+        </h1>
+        <p class="sub" data-i18n="hero.sub">Ponlo en tu bio de Instagram. Para jugadores, entrenadores, clubes, scouts y todo el ecosistema.</p>
+
+        <div class="chip-group" role="tablist" aria-label="Tipo de perfil" data-i18n-aria-label="hero.profileGroupLabel">
+          <button class="chip is-active" type="button" data-profile="jugador" data-profile-label>Jugador</button>
+          <button class="chip" type="button" data-profile="jugadora" data-profile-label>Jugadora</button>
+          <button class="chip" type="button" data-profile="entrenador" data-profile-label>Entrenador</button>
+          <button class="chip" type="button" data-profile="club" data-profile-label>Club</button>
+          <button class="chip" type="button" data-profile="scout" data-profile-label>Scout</button>
+        </div>
+        <p class="profile-tag"><span data-i18n="hero.profileLabel">Perfil seleccionado:</span> <span id="heroProfileLabel">Jugador</span></p>
+
+        <p class="ticker-label" data-i18n="ticker.label">Perfiles en movimiento</p>
+        <div class="ticker" aria-label="Perfiles destacados" data-i18n-aria-label="ticker.aria">
+          <div class="ticker-track" id="profileTicker"></div>
+        </div>
+
+        <div class="url-builder">
+          <span class="url-prefix">xyanalyst.link/</span>
+          <input id="slugInput" type="text" placeholder="tu-nombre" data-i18n-placeholder="placeholders.slug" />
+          <button id="copyUrl" class="ghost" type="button" data-i18n="buttons.copy">Copiar</button>
+        </div>
+        <p class="url-hint" data-i18n="hero.urlHint">Elige tu URL antes de que alguien más la tome.</p>
+
+        <button class="cta" id="createProfileBtn" type="button" data-i18n="hero.cta">Crear mi perfil gratis →</button>
+      </div>
+
+      <div class="hero-right">
+        <div class="phone-stack">
+          <div class="phone phone-large">
+            <div class="screen screen-dark">
+              <div class="screen-top">
+                <span class="badge" data-i18n="phone.badge">Perfil PRO</span>
+                <span class="pulse-dot"></span>
+              </div>
+
+              <div class="phone-avatar">
+                <img id="phoneAvatarImg" alt="Foto de perfil" />
+                <span id="phoneAvatarFallback">A</span>
+              </div>
+
+              <h3 id="phoneName" class="phone-name">Nombre Apellido</h3>
+              <p id="phoneRole" class="phone-role">Posición y categoría</p>
+              <p id="phoneLocation" class="phone-location" data-i18n="phone.location">Madrid, España</p>
+
+              <div class="phone-views">
+                <div class="phone-view phone-view-info is-active">
+                  <div class="phone-stats">
+                    <div class="phone-stat">
+                      <span id="phoneStatMatches">0</span>
+                      <small data-i18n="phone.matches">Partidos</small>
+                    </div>
+                    <div class="phone-stat">
+                      <span id="phoneStatXg">0</span>
+                      <small data-i18n="phone.xg">xG</small>
+                    </div>
+                    <div class="phone-stat">
+                      <span id="phoneStatPercentile">0%</span>
+                      <small data-i18n="phone.percentile">Percentil</small>
+                    </div>
+                  </div>
+
+                  <div class="phone-actions">
+                    <button class="mini-btn primary" type="button" data-i18n="phone.contact">Email directo</button>
+                    <button class="mini-btn outline" type="button" data-i18n="phone.whatsapp">WhatsApp</button>
+                    <button class="mini-btn outline" type="button" data-i18n="phone.linkedin">LinkedIn</button>
+                  </div>
+
+                  <div id="phoneLinks" class="phone-links"></div>
+                  <p id="phoneUrl" class="phone-url">xyanalyst.link/tu-nombre</p>
+                </div>
+
+                <div class="phone-view phone-view-stats">
+                  <h4 class="phone-radar-title">Estadísticas</h4>
+                  <div class="phone-stats-grid">
+                    <div class="phone-stat-card">
+                      <span id="phoneStatGoals">0</span>
+                      <small>Goles</small>
+                    </div>
+                    <div class="phone-stat-card">
+                      <span id="phoneStatAssists">0</span>
+                      <small>Asistencias</small>
+                    </div>
+                    <div class="phone-stat-card">
+                      <span id="phoneStatMinutes">0</span>
+                      <small>Minutos</small>
+                    </div>
+                    <div class="phone-stat-card">
+                      <span id="phoneStatDistance">0</span>
+                      <small>Km</small>
+                    </div>
+                    <div class="phone-stat-card">
+                      <span id="phoneStatKeypasses">0</span>
+                      <small>Pases clave</small>
+                    </div>
+                    <div class="phone-stat-card">
+                      <span id="phoneStatShots">0</span>
+                      <small>Tiros</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="app">
+      <div class="panel editor">
+        <h2 data-i18n="editor.title">Editor</h2>
+
+        <label class="field">
+          <span data-i18n="editor.name">Nombre</span>
+          <input id="nameInput" type="text" placeholder="Ej: Camila Suarez" data-i18n-placeholder="placeholders.name" />
+        </label>
+
+        <label class="field">
+          <span data-i18n="editor.role">Rol / Posición</span>
+          <input id="roleInput" type="text" placeholder="Ej: Delantera - Sub 20" data-i18n-placeholder="placeholders.role" />
+        </label>
+
+        <label class="field">
+          <span data-i18n="editor.bio">Bio corta</span>
+          <textarea id="bioInput" rows="3" placeholder="Ej: Capitán, 12 goles en 2025, disponible para pruebas." data-i18n-placeholder="placeholders.bio"></textarea>
+        </label>
+
+        <label class="field">
+          <span data-i18n="editor.photo">Foto de perfil (archivo)</span>
+          <input id="avatarInput" class="file-input" type="file" accept="image/*" />
+        </label>
+
+        <div class="links-header">
+          <h3 data-i18n="editor.linksTitle">Links</h3>
+          <p class="muted" data-i18n="editor.linksHint">Agrega videos, contactos o redes.</p>
+        </div>
+
+        <div class="link-form">
+          <input id="linkLabel" type="text" placeholder="Etiqueta: Highlights 2025" data-i18n-placeholder="placeholders.linkLabel" />
+          <input id="linkUrl" type="url" placeholder="https://..." data-i18n-placeholder="placeholders.linkUrl" />
+          <button id="addLink" type="button" data-i18n="buttons.add">Agregar</button>
+        </div>
+        <p id="linkError" class="error" role="alert" aria-live="polite"></p>
+
+        <div class="link-list" id="linkList"></div>
+
+        <div class="radar-editor">
+          <h3>Radar de rendimiento</h3>
+          <p class="muted">Ingresa valores de 0 a 100.</p>
+          <div class="radar-grid">
+            <label>
+              Velocidad
+              <input id="radarSpeed" type="number" min="0" max="100" />
+            </label>
+            <label>
+              Técnica
+              <input id="radarTechnique" type="number" min="0" max="100" />
+            </label>
+            <label>
+              Visión
+              <input id="radarVision" type="number" min="0" max="100" />
+            </label>
+            <label>
+              Defensa
+              <input id="radarDefense" type="number" min="0" max="100" />
+            </label>
+            <label>
+              Resistencia
+              <input id="radarStamina" type="number" min="0" max="100" />
+            </label>
+          </div>
+          <label class="field">
+            <span>Color del radar</span>
+            <input id="radarColor" type="color" value="#38f6ff" />
+          </label>
+        </div>
+      </div>
+
+      <div class="panel preview">
+        <h2 data-i18n="preview.title">Vista previa</h2>
+        <div class="profile">
+          <div class="avatar">
+            <img id="avatarImg" alt="Foto de perfil" data-i18n-alt="preview.avatarAlt" />
+            <span id="avatarFallback" class="avatar-fallback">K</span>
+          </div>
+
+          <div class="profile-meta">
+            <span id="previewType" class="meta-pill">Jugador</span>
+            <span id="previewSlug" class="meta-url">xyanalyst.link/tu-nombre</span>
+          </div>
+
+          <div class="profile-text">
+            <h3 id="previewName">Nombre Apellido</h3>
+            <p id="previewRole" class="role">Posicion y categoria</p>
+            <p id="previewBio" class="bio">Bio corta del deportista. Resultados, clubes y datos clave.</p>
+          </div>
+
+          <div id="previewLinks" class="profile-links"></div>
+
+          <div class="radar-card">
+            <h4>Radar de rendimiento</h4>
+            <svg id="radarSvg" viewBox="0 0 260 260" aria-label="Radar de rendimiento"></svg>
+          </div>
+
+          <button id="shareProfileBtn" class="cta" type="button" data-i18n="buttons.share">Compartir perfil</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer"></footer>
+  </main>
+
+  <div id="loginModal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button id="loginClose" class="modal-close" type="button" aria-label="Cerrar">×</button>
+      <h3 id="loginTitle" data-i18n="login.title">Tu cuenta</h3>
+      <p class="modal-sub" data-i18n="login.subtitle">Inicia sesión o crea tu perfil para continuar.</p>
+
+      <div class="modal-tabs" role="tablist" aria-label="Acceso">
+        <button class="tab is-active" type="button" data-auth-tab="login" data-i18n="login.tabLogin">Iniciar sesión</button>
+        <button class="tab" type="button" data-auth-tab="signup" data-i18n="login.tabSignup">Registrarse</button>
+      </div>
+
+      <div class="auth-panel is-active" data-auth-panel="login">
+        <label class="field">
+          <span data-i18n="login.emailLabel">Correo</span>
+          <input id="loginEmail" type="email" placeholder="nombre@email.com" data-i18n-placeholder="login.emailPlaceholder" />
+        </label>
+
+        <label class="field">
+          <span data-i18n="login.passwordLabel">Contraseña</span>
+          <input id="loginPassword" type="password" placeholder="••••••••" data-i18n-placeholder="login.passwordPlaceholder" />
+        </label>
+
+        <button id="loginSubmit" class="cta" type="button" data-i18n="login.submit">Entrar</button>
+      </div>
+
+      <div class="auth-panel" data-auth-panel="signup">
+        <label class="field">
+          <span data-i18n="signup.nameLabel">Nombre completo</span>
+          <input id="signupName" type="text" placeholder="Ej: Camila Suarez" data-i18n-placeholder="signup.namePlaceholder" />
+        </label>
+
+        <label class="field">
+          <span data-i18n="signup.emailLabel">Correo</span>
+          <input id="signupEmail" type="email" placeholder="nombre@email.com" data-i18n-placeholder="signup.emailPlaceholder" />
+        </label>
+
+        <label class="field">
+          <span data-i18n="signup.passwordLabel">Contraseña</span>
+          <input id="signupPassword" type="password" placeholder="••••••••" data-i18n-placeholder="signup.passwordPlaceholder" />
+        </label>
+
+        <button id="signupSubmit" class="cta" type="button" data-i18n="signup.submit">Crear cuenta</button>
+      </div>
+
+      <p id="authNotice" class="modal-notice" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="createModal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="createTitle">
+      <button id="createClose" class="modal-close" type="button" aria-label="Cerrar">×</button>
+      <h3 id="createTitle" data-i18n="create.title">Crear perfil</h3>
+      <p class="modal-sub" data-i18n="create.subtitle">Solo elige tu nombre de usuario para empezar.</p>
+
+      <label class="field">
+        <span data-i18n="create.usernameLabel">Nombre de usuario</span>
+        <input id="createUsername" type="text" placeholder="Ej: xy_analyst" data-i18n-placeholder="create.usernamePlaceholder" />
+      </label>
+
+      <button id="createSubmit" class="cta" type="button" data-i18n="create.submit">Crear perfil</button>
+      <p id="createNotice" class="modal-notice" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="shareModal" class="modal" aria-hidden="true">
+    <div class="modal-card share-card" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+      <button id="shareClose" class="modal-close" type="button" aria-label="Cerrar">×</button>
+      <h3 id="shareTitle">Vista previa completa</h3>
+      <p class="modal-sub">Así verá tu perfil el público.</p>
+
+      <div class="share-preview">
+        <div class="share-header">
+          <div class="avatar share-avatar">
+            <img id="shareAvatarImg" alt="Foto de perfil" />
+            <span id="shareAvatarFallback" class="avatar-fallback">A</span>
+          </div>
+          <div>
+            <h4 id="shareName">Nombre Apellido</h4>
+            <p id="shareRole" class="role">Posición y categoría</p>
+            <p id="shareLocation" class="phone-location">Madrid, España</p>
+          </div>
+        </div>
+
+        <p id="shareBio" class="bio">Bio corta del deportista.</p>
+        <div id="shareLinks" class="profile-links"></div>
+
+        <div class="radar-card">
+          <h4>Radar de rendimiento</h4>
+          <svg id="shareRadarSvg" viewBox="0 0 260 260" aria-label="Radar de rendimiento"></svg>
+        </div>
+
+        <p id="shareUrl" class="phone-url">xyanalyst.link/tu-nombre</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="clarity.js"></script>
+  <script src="xy_analyst.js"></script>
+</body>
+</html>
