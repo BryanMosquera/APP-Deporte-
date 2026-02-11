@@ -513,6 +513,7 @@ a {
   padding: 16px;
   display: grid;
   gap: 12px;
+  overflow: hidden;
 }
 
 .screen-dark {
@@ -1444,6 +1445,15 @@ textarea:focus {
 
   .top-actions {
     flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .shell {
+    padding: 24px 16px 56px;
+  }
+
+  .hero {
+    gap: 24px;
   }
 }
 
@@ -1465,29 +1475,40 @@ textarea:focus {
 }
 
 @media (max-width: 720px) {
+  .topbar {
+    gap: 16px;
+  }
+
+  .logo-text,
+  .logo-dot {
+    font-size: 0.95rem;
+  }
+
   .hero-right::before {
-    width: 420px;
-    height: 420px;
+    width: 360px;
+    height: 360px;
   }
 
   .hero-right::after {
-    width: 320px;
-    height: 320px;
+    width: 260px;
+    height: 260px;
   }
   .phone-stack {
-    min-height: 480px;
+    min-height: 420px;
+    width: 100%;
+    max-width: 360px;
   }
 
   .phone-large {
-    width: 250px;
-    height: 470px;
+    width: 230px;
+    height: 430px;
   }
 
   .phone-small {
-    width: 190px;
-    height: 290px;
-    left: -24px;
-    bottom: 16px;
+    width: 170px;
+    height: 260px;
+    left: -16px;
+    bottom: 12px;
   }
 
   .url-builder {
@@ -1506,5 +1527,149 @@ textarea:focus {
   .avatar {
     width: 80px;
     height: 80px;
+  }
+}
+
+@media (max-width: 540px) {
+  .top-actions {
+    width: 100%;
+  }
+
+  .ghost,
+  .cta.small {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-copy h1 {
+    font-size: 2.2rem;
+  }
+
+  .ticker {
+    padding: 8px 0;
+  }
+
+  .url-builder {
+    gap: 10px;
+  }
+
+  .phone-stack {
+    min-height: 380px;
+    max-width: 320px;
+  }
+
+  .phone-large {
+    width: 210px;
+    height: 400px;
+  }
+
+  .phone-small {
+    width: 150px;
+    height: 230px;
+    left: -10px;
+    bottom: 8px;
+  }
+
+  .screen {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .phone-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  }
+
+  .phone-name {
+    font-size: 1rem;
+  }
+
+  .phone-role {
+    font-size: 0.85rem;
+  }
+
+  .phone-location {
+    font-size: 0.75rem;
+  }
+
+  .phone-stat {
+    padding: 6px 2px;
+  }
+
+  .phone-actions .mini-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .phone-views {
+    min-height: 200px;
+  }
+
+  .phone-view {
+    gap: 8px;
+  }
+
+  .phone-links {
+    display: none;
+  }
+
+  .phone-url {
+    margin: 6px 0 0;
+    font-size: 0.7rem;
+  }
+
+  .phone-stats-grid {
+    gap: 8px;
+  }
+
+  .phone-stat-card {
+    padding: 8px 6px;
+  }
+
+  .phone-stat-card span {
+    font-size: 0.85rem;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .share-card {
+    max-width: 92vw;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-copy h1 {
+    font-size: 2rem;
+  }
+
+  .phone-stack {
+    min-height: 340px;
+    max-width: 280px;
+  }
+
+  .phone-large {
+    width: 190px;
+    height: 360px;
+  }
+
+  .phone-small {
+    width: 135px;
+    height: 210px;
+    left: -6px;
+  }
+
+  .phone-actions .mini-btn {
+    font-size: 0.7rem;
+  }
+
+  .phone-url {
+    display: none;
+  }
+
+  .radar-grid {
+    grid-template-columns: 1fr;
   }
 }
